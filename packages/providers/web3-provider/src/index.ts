@@ -21,7 +21,7 @@ interface IWalletConnectProviderOptions extends IWCEthRpcConnectionOptions {
   pollingInterval?: number;
 }
 
-class WalletConnectProvider extends ProviderEngine {
+class WalletConnectProvider extends ProviderEngine{
   public bridge = "https://bridge.walletconnect.org";
   public qrcode = true;
   public rpc: IRPCMap | null = null;
@@ -38,7 +38,14 @@ class WalletConnectProvider extends ProviderEngine {
   public rpcUrl = "";
 
   constructor(opts?: IWalletConnectProviderOptions) {
-    super({ pollingInterval: opts?.pollingInterval || 4000 });
+    super({
+      pollingInterval: opts?.pollingInterval || 4000, blockTracker: {
+        on: () => {
+        }, removeAllListeners: () => {
+        }
+      }
+    });
+    console.log('constructor', opts);
     this.bridge = opts?.bridge || "https://bridge.walletconnect.org";
     this.qrcode = typeof opts?.qrcode === "undefined" || opts?.qrcode !== false;
     this.rpc = opts?.rpc || null;
@@ -144,13 +151,14 @@ class WalletConnectProvider extends ProviderEngine {
   enable() {
     return new Promise(async (resolve, reject) => {
       try {
+        console.log("enabling", )
         const wc = await this.getWalletConnector();
         if (wc) {
           this.start();
           this.subscribeWalletConnector();
           resolve(wc.accounts);
         } else {
-          return reject(new Error("Failed to connect to WalleConnect"));
+          return reject(new Error("Failed to connect to WalletConnect"));
         }
       } catch (error) {
         return reject(error);
@@ -199,6 +207,7 @@ class WalletConnectProvider extends ProviderEngine {
   }
 
   async close() {
+    console.log('closing...')
     const wc = await this.getWalletConnector({ disableSessionCreation: true });
     await wc.killSession();
     // tslint:disable-next-line:await-promise
@@ -213,6 +222,7 @@ class WalletConnectProvider extends ProviderEngine {
       const wc = await this.getWalletConnector();
       switch (payload.method) {
         case "wc_killSession":
+          console.log("wc_killSession")
           await this.close();
           result = null;
           break;
@@ -236,6 +246,7 @@ class WalletConnectProvider extends ProviderEngine {
           response = await this.handleOtherRequests(payload);
       }
       if (response) {
+        console.log("-->response", response)
         return response;
       }
       return this.formatResponse(payload, result);
@@ -292,15 +303,27 @@ class WalletConnectProvider extends ProviderEngine {
         wc.createSession(sessionRequestOpions)
           .then(() => {
             if (this.qrcode) {
+              console.log(wc.uri)
               WalletConnectQRCodeModal.open(wc.uri, () => {
                 reject(new Error("User closed WalletConnect modal"));
               });
             }
+            wc.on('reject', (error,_) => {
+              console.log('onreject', error)
+              if (this.qrcode) {
+                WalletConnectQRCodeModal.close();
+              }
+              this.isConnecting = false;
+              this.connected = false;
+              this.emit("reject");
+              return reject(error);
+            });
             wc.on("connect", (error, payload) => {
               if (this.qrcode) {
                 WalletConnectQRCodeModal.close();
               }
               if (error) {
+                console.log("-->createSession onconnect",error)
                 this.isConnecting = false;
                 return reject(error);
               }
@@ -317,6 +340,7 @@ class WalletConnectProvider extends ProviderEngine {
             });
           })
           .catch(error => {
+            console.log("-->createSession",error)
             this.isConnecting = false;
             reject(error);
           });
@@ -332,14 +356,20 @@ class WalletConnectProvider extends ProviderEngine {
 
   async subscribeWalletConnector() {
     const wc = await this.getWalletConnector();
-    wc.on("disconnetect", error => {
+    console.log("subscribeWalletConnector", wc)
+    wc.on("disconnect", error => {
+      console.log('subscribeWalletConnector disconnect', error)
       if (error) {
         this.emit("error", error);
         return;
+      } else {
+        this.emit("disconnect", error);
+        this.stop();
+        // this.close()
       }
-      this.stop();
     });
     wc.on("session_update", (error, payload) => {
+      console.log('subscribeWalletConnector session_update,', error)
       if (error) {
         this.emit("error", error);
         return;
@@ -379,6 +409,7 @@ class WalletConnectProvider extends ProviderEngine {
       42: "kovan",
     };
     const network = infuraNetworks[chainId];
+    console.log(rpcUrl)
     if (!rpcUrl) {
       if (this.rpc && this.rpc[chainId]) {
         rpcUrl = this.rpc[chainId];

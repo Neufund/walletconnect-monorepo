@@ -139,6 +139,7 @@ class Connector implements IConnector {
     }
 
     if (this.handshakeId) {
+      console.log('core constructor', this.handshakeId)
       this._subscribeToSessionResponse(this.handshakeId, "Session request rejected");
     }
     this._transport =
@@ -546,6 +547,7 @@ class Connector implements IConnector {
   }
 
   public rejectSession(sessionError?: ISessionError) {
+    console.log('rejectSession started')
     if (this._connected) {
       throw new Error(ERROR_SESSION_CONNECTED);
     }
@@ -607,6 +609,7 @@ class Connector implements IConnector {
   }
 
   public async killSession(sessionError?: ISessionError) {
+    console.log("killing session...")
     const message = sessionError ? sessionError.message : "Session Disconnected";
 
     const sessionParams: ISessionParams = {
@@ -877,16 +880,25 @@ class Connector implements IConnector {
     if (this._connected) {
       this._connected = false;
     }
+    console.log("--->_handleSessionDisconnect",errorMsg, errorMsg === ERROR_SESSION_REJECTED)
+    if(errorMsg === ERROR_SESSION_REJECTED){
+      this._eventManager.trigger({
+        event: "reject",
+        params: [{ message }],
+      });
+    } else {
     this._eventManager.trigger({
       event: "disconnect",
       params: [{ message }],
     });
+    }
     this._removeStorageSession();
     this._transport.close();
   }
 
   private _handleSessionResponse(errorMsg: string, sessionParams?: ISessionParams) {
     if (sessionParams) {
+      console.log('session params', sessionParams)
       if (sessionParams.approved) {
         if (!this._connected) {
           this._connected = true;
@@ -939,9 +951,11 @@ class Connector implements IConnector {
 
         this._manageStorageSession();
       } else {
+        console.log("else 1")
         this._handleSessionDisconnect(errorMsg);
       }
     } else {
+      console.log("else 2",errorMsg)
       this._handleSessionDisconnect(errorMsg);
     }
   }
@@ -986,7 +1000,10 @@ class Connector implements IConnector {
 
   private _subscribeToSessionResponse(id: number, errorMsg: string) {
     this._subscribeToResponse(id, (error, payload) => {
+        console.log("_subscribeToResponse", error, payload)
+
       if (error) {
+        console.log("_subscribeToResponse errorr", error.message)
         this._handleSessionResponse(error.message);
         return;
       }
