@@ -9,6 +9,7 @@ const HookedWalletSubprovider = require("web3-provider-engine/subproviders/hooke
 
 class WalletConnectSubprovider extends HookedWalletSubprovider {
   private _connected = false;
+
   constructor(opts?: IWCEthRpcConnectionOptions) {
     super({
       getAccounts: async (cb: any) => {
@@ -96,8 +97,8 @@ class WalletConnectSubprovider extends HookedWalletSubprovider {
 
     this.isConnecting = false;
     this.connectCallbacks = [];
-    this.subscribeWalletConnector()
   }
+
 
   get isWalletConnect() {
     return true;
@@ -125,8 +126,24 @@ class WalletConnectSubprovider extends HookedWalletSubprovider {
     }
   }
 
+  enable() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const wc = await this.getWalletConnector();
+        if (wc) {
+          this.start();
+          this.subscribeWalletConnector();
+          resolve(wc.accounts);
+        } else {
+          return reject(new Error("Failed to connect"));
+        }
+      } catch (error) {
+        return reject(error);
+      }
+    });
+  }
+
   async close() {
-    console.log('closing...')
     const wc = await this.getWalletConnector({ disableSessionCreation: true });
     await wc.killSession();
     // tslint:disable-next-line:await-promise
@@ -134,76 +151,87 @@ class WalletConnectSubprovider extends HookedWalletSubprovider {
     this.emit("close", 1000, "Connection closed");
   }
 
+  async cancelSession() {
+    await this.wc.killSession();
+    await this.stop();
+    this.emit("close", 1000, "Connection closed");
+  }
+
+  connect(): Promise<IConnector>  {
+    const wc = this.wc;
+    this.isConnecting = true;
+    const sessionRequestOpions = this.chainId ? { chainId: this.chainId } : undefined;
+    return new Promise((resolve, reject) => {
+      wc.createSession(sessionRequestOpions)
+        .then(() => {
+          this.emit("sessionRequest", wc.uri);
+
+          if (this.qrcode) {
+            WalletConnectQRCodeModal.open(wc.uri, () => {
+              reject(new Error("User closed WalletConnect modal"));
+            });
+          }
+          wc.on('disconnect', (error: any, _: any) => {
+            if (this.qrcode) {
+              WalletConnectQRCodeModal.close();
+            }
+            this.isConnecting = false;
+            wc.connected = false;
+            this.emit("reject");
+            return reject(error);
+          });
+          wc.on("connect", (error: any, payload: any) => {
+            if (this.qrcode) {
+              WalletConnectQRCodeModal.close();
+            }
+            if (error) {
+              this.isConnecting = false;
+              return reject(error);
+            }
+            this.isConnecting = false;
+            this._connected = true;
+
+            if (payload) {
+              // Handle session update
+              this.updateState(payload.params[0]);
+            }
+            // Emit connect event
+            // @ts-ignore
+            this.emit("connect");
+
+            this.triggerConnect(wc);
+            resolve(wc);
+          });
+        })
+        .catch((error: any) => {
+          this.isConnecting = false;
+          reject(error);
+        });
+    })
+  }
+
   // disableSessionCreation - if true, getWalletConnector won't try to create a new session
   // in case the connector is disconnected
   getWalletConnector(opts: { disableSessionCreation?: boolean } = {}): Promise<IConnector> {
     const { disableSessionCreation = false } = opts;
-
-    return new Promise((resolve, reject) => {
-      const wc = this.wc;
-
-      if (this.isConnecting) {
+    const wc = this.wc;
+    if (this.isConnecting) {
+      return new Promise((resolve, _) => {
         this.onConnect((x: any) => resolve(x));
-      } else if (!wc.connected && !disableSessionCreation) {
-        console.log("--->getWalletConnector")
-        this.isConnecting = true;
-        const sessionRequestOpions = this.chainId ? { chainId: this.chainId } : undefined;
-        wc.createSession(sessionRequestOpions)
-          .then(() => {
-            console.log(wc.uri);
-            this.emit("session_request");
+      })
 
-            if (this.qrcode) {
-              WalletConnectQRCodeModal.open(wc.uri, () => {
-                reject(new Error("User closed WalletConnect modal"));
-              });
-            }
-            wc.on('reject', (error: any, _: any) => {
-              console.log('onreject', error)
-              if (this.qrcode) {
-                WalletConnectQRCodeModal.close();
-              }
-              this.isConnecting = false;
-              wc.connected = false;
-              this.emit("reject");
-              return reject(error);
-            });
-            wc.on("connect", (error: any, payload: any) => {
-              if (this.qrcode) {
-                WalletConnectQRCodeModal.close();
-              }
-              if (error) {
-                this.isConnecting = false;
-                return reject(error);
-              }
-              this.isConnecting = false;
-              this._connected = true;
-
-              if (payload) {
-                // Handle session update
-                console.log("--->>payload", payload)
-                this.updateState(payload.params[0]);
-              }
-              // Emit connect event
-              // @ts-ignore
-              this.emit("connect");
-
-              this.triggerConnect(wc);
-              resolve(wc);
-            });
-          })
-          .catch((error: any) => {
-            this.isConnecting = false;
-            reject(error);
-          });
-      } else {
+    } else if (!wc.connected && !disableSessionCreation) {
+      return this.connect()
+    } else {
+      return new Promise((resolve, _) => {
         if (!this.connected) {
           this._connected = true;
           this.updateState(wc.session);
         }
         resolve(wc);
-      }
-    });
+      })
+    }
+
   }
 
   async updateState(sessionParams: any) {
@@ -227,9 +255,7 @@ class WalletConnectSubprovider extends HookedWalletSubprovider {
 
   async subscribeWalletConnector() {
     const wc = await this.getWalletConnector();
-    console.log("subscribeWalletConnector", wc)
     wc.on("disconnect", error => {
-      console.log('subscribeWalletConnector disconnect', error)
       if (error) {
         this.emit("error", error);
         return;
@@ -240,7 +266,6 @@ class WalletConnectSubprovider extends HookedWalletSubprovider {
       }
     });
     wc.on("session_update", (error, payload) => {
-      console.log('subscribeWalletConnector session_update,', error)
       if (error) {
         this.emit("error", error);
         return;
