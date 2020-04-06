@@ -143,6 +143,11 @@ class WalletConnectSubprovider extends HookedWalletSubprovider {
     });
   }
 
+  async getMeta() {
+    const wc = await this.getWalletConnector();
+    return wc.peerMeta
+  }
+
   async close() {
     const wc = await this.getWalletConnector({ disableSessionCreation: true });
     await wc.killSession();
