@@ -326,16 +326,16 @@
         "signature": "2c07bcc7b01da480ba140e2238473c12075616f34c9c8a4d069287a507cde5f5"
       },
       "../../../../node_modules/@babel/types/lib/index.d.ts": {
-        "version": "09f12d7537544bd0ec9f8e3076a50898e5250a2ca6a084b5a3751f6a489c40e4",
-        "signature": "09f12d7537544bd0ec9f8e3076a50898e5250a2ca6a084b5a3751f6a489c40e4"
+        "version": "9566baf39af3e8e8525367b91f8313d0f3dee7dd21aa76bb9ecbc5c3c66df739",
+        "signature": "9566baf39af3e8e8525367b91f8313d0f3dee7dd21aa76bb9ecbc5c3c66df739"
       },
       "../../../../node_modules/@types/babel__generator/index.d.ts": {
         "version": "b25c5f2970d06c729f464c0aeaa64b1a5b5f1355aa93554bb5f9c199b8624b1e",
         "signature": "b25c5f2970d06c729f464c0aeaa64b1a5b5f1355aa93554bb5f9c199b8624b1e"
       },
       "../../../../node_modules/@types/babel__traverse/index.d.ts": {
-        "version": "1fd8e7bda08591c056a1782cc7be557735461ee93be737a27e6714979cad018b",
-        "signature": "1fd8e7bda08591c056a1782cc7be557735461ee93be737a27e6714979cad018b"
+        "version": "0dea413c59f1ff4a1f23f806d8aa5cdb7572652b301f081545fcf1c9ae10d4d5",
+        "signature": "0dea413c59f1ff4a1f23f806d8aa5cdb7572652b301f081545fcf1c9ae10d4d5"
       },
       "../../../../node_modules/@babel/parser/typings/babel-parser.d.ts": {
         "version": "56dede90729ef85351f132d66e05510851211d627e2f2c6621475d4f7938f365",
@@ -346,8 +346,8 @@
         "signature": "3e0a34f7207431d967dc32d593d1cda0c23975e9484bc8895b39d96ffca4a0d8"
       },
       "../../../../node_modules/@types/babel__core/index.d.ts": {
-        "version": "cb5df634c024fe13ea293f7aa2b27a9d02f9b3aece975c884485c617d7653e25",
-        "signature": "cb5df634c024fe13ea293f7aa2b27a9d02f9b3aece975c884485c617d7653e25"
+        "version": "af523cd24a11e1feadface05a9ac4f692a99bcb65c020b96061c63ac593824ad",
+        "signature": "af523cd24a11e1feadface05a9ac4f692a99bcb65c020b96061c63ac593824ad"
       },
       "../../../../node_modules/@types/bn.js/index.d.ts": {
         "version": "bc6dd50ac2fc9a7ca6488811b116bd0ddd606338db0bb97852c8fcf757e2d7f5",
@@ -466,16 +466,16 @@
         "signature": "faea2e79ff4cd3b23c1dcf1584b541f86727018d185b4cc69ab3823bc3c95ec7"
       },
       "../../../../node_modules/@types/react/global.d.ts": {
-        "version": "b4cd656db9b65fff477f65dbda00a5de4e2e765375316abd0c3ffd1282664ccc",
-        "signature": "b4cd656db9b65fff477f65dbda00a5de4e2e765375316abd0c3ffd1282664ccc"
+        "version": "ecf78e637f710f340ec08d5d92b3f31b134a46a4fcf2e758690d8c46ce62cba6",
+        "signature": "ecf78e637f710f340ec08d5d92b3f31b134a46a4fcf2e758690d8c46ce62cba6"
       },
       "../../../../node_modules/csstype/index.d.ts": {
-        "version": "f9d66b7d0c140496459807082ebe1bd8185a2d7478951881724b708e72fc7386",
-        "signature": "f9d66b7d0c140496459807082ebe1bd8185a2d7478951881724b708e72fc7386"
+        "version": "cd4fba36eeb79a6e2ff14bbe1024cd83ae542c1bd1c2a02ed853ebc251974119",
+        "signature": "cd4fba36eeb79a6e2ff14bbe1024cd83ae542c1bd1c2a02ed853ebc251974119"
       },
       "../../../../node_modules/@types/react/index.d.ts": {
-        "version": "80117000ecc19c96155209e7c9b40271f2a1441e0052bfd7f97599e1fa998b83",
-        "signature": "80117000ecc19c96155209e7c9b40271f2a1441e0052bfd7f97599e1fa998b83"
+        "version": "e726c865f71af8f20d4a03e17182f62a38e1fd300161b867dc6068ce6529f7f2",
+        "signature": "e726c865f71af8f20d4a03e17182f62a38e1fd300161b867dc6068ce6529f7f2"
       },
       "../../../../node_modules/@types/react-native/globals.d.ts": {
         "version": "42fe955ea0e51c1dbfa150f5183b4bb5f0f4d2aa09085f6d0bf48d426b3f7104",
@@ -485,15 +485,15 @@
         "version": "818a9a35cf844bd8380e9273b8ed82023c614164d0975f096b8c9b680730cbc3",
         "signature": "818a9a35cf844bd8380e9273b8ed82023c614164d0975f096b8c9b680730cbc3"
       },
-      "../../../../node_modules/@types/react-native/batchedbridge.d.ts": {
+      "../../../../node_modules/@types/react-native/BatchedBridge.d.ts": {
         "version": "496293b62091a5bfb97dac7a0055f3e73dfc7b8d8c220000ecf68635c0bef790",
         "signature": "496293b62091a5bfb97dac7a0055f3e73dfc7b8d8c220000ecf68635c0bef790"
       },
-      "../../../../node_modules/@types/react-native/devtools.d.ts": {
+      "../../../../node_modules/@types/react-native/Devtools.d.ts": {
         "version": "715ee74e86e7388d2923cd6377fafcf3f86bea534d5cb4c827a1603383fabdb3",
         "signature": "715ee74e86e7388d2923cd6377fafcf3f86bea534d5cb4c827a1603383fabdb3"
       },
-      "../../../../node_modules/@types/react-native/launchscreen.d.ts": {
+      "../../../../node_modules/@types/react-native/LaunchScreen.d.ts": {
         "version": "234b97ac9af46707f2315ff395a9b340d37b7dbc8290d91f5d6bd97189d220f3",
         "signature": "234b97ac9af46707f2315ff395a9b340d37b7dbc8290d91f5d6bd97189d220f3"
       },
@@ -510,8 +510,8 @@
         "signature": "6462324ef579c47415610a63f1aa8b72f5b5114f8fe8307967f9add2bca634f5"
       },
       "../../../../node_modules/@types/shelljs/index.d.ts": {
-        "version": "71daca42a04d95330492cd961998ee208070524a7198859913d1e07dcdb849c8",
-        "signature": "71daca42a04d95330492cd961998ee208070524a7198859913d1e07dcdb849c8"
+        "version": "ed89733a7c4a8d2663f4b9211ef5bdc72064e4ddf881898ea04ef73c050e7a94",
+        "signature": "ed89733a7c4a8d2663f4b9211ef5bdc72064e4ddf881898ea04ef73c050e7a94"
       },
       "../../../../node_modules/@types/stack-utils/index.d.ts": {
         "version": "41422586881bcd739b4e62d9b91cd29909f8572aa3e3cdf316b7c50f14708d49",
@@ -1559,20 +1559,20 @@
         "../../../../node_modules/@types/node/util.d.ts",
         "../../../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../../../../node_modules/@types/react-native/batchedbridge.d.ts": [
+      "../../../../node_modules/@types/react-native/BatchedBridge.d.ts": [
         "../../../../node_modules/@types/node/fs.d.ts",
         "../../../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../../../node_modules/@types/node/util.d.ts",
         "../../../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../../../../node_modules/@types/react-native/devtools.d.ts": [
-        "../../../../node_modules/@types/react-native/devtools.d.ts",
+      "../../../../node_modules/@types/react-native/Devtools.d.ts": [
+        "../../../../node_modules/@types/react-native/Devtools.d.ts",
         "../../../../node_modules/@types/node/fs.d.ts",
         "../../../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../../../node_modules/@types/node/util.d.ts",
         "../../../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../../../../node_modules/@types/react-native/launchscreen.d.ts": [
+      "../../../../node_modules/@types/react-native/LaunchScreen.d.ts": [
         "../../../../node_modules/@types/node/fs.d.ts",
         "../../../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../../../node_modules/@types/node/util.d.ts",
@@ -1583,9 +1583,9 @@
         "../../../../node_modules/@types/react/index.d.ts",
         "../../../../node_modules/@types/react-native/globals.d.ts",
         "../../../../node_modules/@types/react-native/legacy-properties.d.ts",
-        "../../../../node_modules/@types/react-native/batchedbridge.d.ts",
-        "../../../../node_modules/@types/react-native/devtools.d.ts",
-        "../../../../node_modules/@types/react-native/launchscreen.d.ts",
+        "../../../../node_modules/@types/react-native/BatchedBridge.d.ts",
+        "../../../../node_modules/@types/react-native/Devtools.d.ts",
+        "../../../../node_modules/@types/react-native/LaunchScreen.d.ts",
         "../../../../node_modules/@types/node/fs.d.ts",
         "../../../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../../../node_modules/@types/node/util.d.ts",
@@ -2185,9 +2185,9 @@
         "../../../../node_modules/@types/react/index.d.ts",
         "../../../../node_modules/@types/react-native/globals.d.ts",
         "../../../../node_modules/@types/react-native/legacy-properties.d.ts",
-        "../../../../node_modules/@types/react-native/batchedbridge.d.ts",
-        "../../../../node_modules/@types/react-native/devtools.d.ts",
-        "../../../../node_modules/@types/react-native/launchscreen.d.ts",
+        "../../../../node_modules/@types/react-native/BatchedBridge.d.ts",
+        "../../../../node_modules/@types/react-native/Devtools.d.ts",
+        "../../../../node_modules/@types/react-native/LaunchScreen.d.ts",
         "../../../../node_modules/@types/node/fs.d.ts",
         "../../../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../../../node_modules/@types/node/util.d.ts",
@@ -2200,20 +2200,20 @@
         "../../../../node_modules/@types/node/util.d.ts",
         "../../../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../../../../node_modules/@types/react-native/launchscreen.d.ts": [
+      "../../../../node_modules/@types/react-native/LaunchScreen.d.ts": [
         "../../../../node_modules/@types/node/fs.d.ts",
         "../../../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../../../node_modules/@types/node/util.d.ts",
         "../../../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../../../../node_modules/@types/react-native/devtools.d.ts": [
-        "../../../../node_modules/@types/react-native/devtools.d.ts",
+      "../../../../node_modules/@types/react-native/Devtools.d.ts": [
+        "../../../../node_modules/@types/react-native/Devtools.d.ts",
         "../../../../node_modules/@types/node/fs.d.ts",
         "../../../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../../../node_modules/@types/node/util.d.ts",
         "../../../../node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "../../../../node_modules/@types/react-native/batchedbridge.d.ts": [
+      "../../../../node_modules/@types/react-native/BatchedBridge.d.ts": [
         "../../../../node_modules/@types/node/fs.d.ts",
         "../../../../node_modules/@types/node/ts3.2/fs.d.ts",
         "../../../../node_modules/@types/node/util.d.ts",
@@ -2799,9 +2799,9 @@
       "../../../../node_modules/@types/react/index.d.ts",
       "../../../../node_modules/@types/react-native/globals.d.ts",
       "../../../../node_modules/@types/react-native/legacy-properties.d.ts",
-      "../../../../node_modules/@types/react-native/batchedbridge.d.ts",
-      "../../../../node_modules/@types/react-native/devtools.d.ts",
-      "../../../../node_modules/@types/react-native/launchscreen.d.ts",
+      "../../../../node_modules/@types/react-native/BatchedBridge.d.ts",
+      "../../../../node_modules/@types/react-native/Devtools.d.ts",
+      "../../../../node_modules/@types/react-native/LaunchScreen.d.ts",
       "../../../../node_modules/@types/react-native/index.d.ts",
       "../../../../node_modules/@types/resolve/index.d.ts",
       "../../../../node_modules/@types/rimraf/index.d.ts",

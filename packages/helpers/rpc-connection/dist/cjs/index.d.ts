@@ -1,11 +1,11 @@
 /// <reference types="node" />
 import EventEmitter from "events";
-import { IWCRpcConnection, IWCRpcConnectionOptions, TConnector, IJsonRpcResponseError, IJsonRpcResponseSuccess } from "@walletconnect/types";
+import { IWCRpcConnection, IWCRpcConnectionOptions, IConnector, IJsonRpcResponseError, IJsonRpcResponseSuccess } from "@walletconnect/types";
 declare class WCRpcConnection extends EventEmitter implements IWCRpcConnection {
     bridge: string;
     qrcode: boolean;
     chainId: number;
-    wc: TConnector | null;
+    wc: IConnector | null;
     connected: boolean;
     constructor(opts?: IWCRpcConnectionOptions);
     openQRCode(): void;
